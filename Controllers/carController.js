@@ -3,13 +3,16 @@ const carModel = require('../Models/Cars');
 
 exports.postCars = async(req,res)=>{
     try{
-        if(!(req.body.Cars) || !(req.body.Path) || !(req.body.Fare)){
+        if(!req.body.Car || !req.body.Path || !req.body.Fare){
             return res.json({
                 message:"fill required fields"
             })
         }else{
+            //query to create the data
+            const details = await carModel.create(req.body)
             return res.json({
-                message:"post was succesfull"
+                message:"post was succesfull",
+                details:details
             })
         }
     }catch(error){
